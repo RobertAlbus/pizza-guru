@@ -1,0 +1,11 @@
+{
+  "name": "pizzamachine",
+  "version": "1.0.0",
+  "description": "Code test for The Virtual Gurus",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Robert Albus",
+  "license": "ISC"
+}
