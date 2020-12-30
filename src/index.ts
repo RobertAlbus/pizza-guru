@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 import { Calculator } from './calculate';
 import { InputReader, OutputPrinter } from './io';
 import { Preprocessor } from './preprocess';
