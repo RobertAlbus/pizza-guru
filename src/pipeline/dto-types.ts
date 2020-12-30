@@ -23,9 +23,3 @@ export interface OrderWithPrice extends Order {
   tax: number;
   total: number;
 }
-
-export type State = {
-  input: InputData;
-  preprocessed: Order;
-  calculated: OrderWithPrice;
-};
