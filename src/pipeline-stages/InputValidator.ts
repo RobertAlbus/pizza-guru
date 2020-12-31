@@ -1,11 +1,15 @@
 import { IPipelineStage } from '../pipeline';
-import { readFileSync } from 'fs';
-import * as path from 'path';
+import { EnvConfigService, IEnvConfigService } from '../services/EnvConfigService';
 
 export interface IInputValidator extends IPipelineStage<string, string> {}
 
 export class InputValidator implements IInputValidator, IPipelineStage<string, string> {
+  private configService: IEnvConfigService;
   private data: string = '';
+
+  constructor() {
+    this.configService = new EnvConfigService();
+  }
 
   ingest(input: string): void {
     this.validate(input);
@@ -13,12 +17,7 @@ export class InputValidator implements IInputValidator, IPipelineStage<string, s
   }
 
   private validate(input: string) {
-    if (!process.env.REGEX_VALIDATOR_LOCATION) {
-      throw new Error('Input file path not specified. Set REGEX_VALIDATOR_LOCATION environment variable.');
-    }
-
-    const regexFilePath = path.join(__dirname, '../../' + process.env.REGEX_VALIDATOR_LOCATION);
-    const pattern = readFileSync(regexFilePath, 'utf8');
+    const pattern = this.configService.getConfigFromFile('REGEX_VALIDATOR_LOCATION');
 
     const regex = new RegExp(pattern);
     input.split('\n').forEach((line) => {
