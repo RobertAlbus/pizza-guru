@@ -1,10 +1,10 @@
-import { CalculatedResult, IPipelineStage } from '../pipeline';
-import { OrderWithPrice } from '../pipeline/dto-types';
+import { IPipelineStage } from '../pipeline';
 import { default as equal } from 'deep-equal';
+import { OrderWithPrice } from '../models';
 
-export interface IOutput extends IPipelineStage<CalculatedResult, void> {}
+export interface IOutput extends IPipelineStage<OrderWithPrice, void> {}
 
-export class OutputPrinter implements IOutput, IPipelineStage<CalculatedResult, void> {
+export class OutputPrinter implements IOutput, IPipelineStage<OrderWithPrice, void> {
   private data: string = '';
 
   ingest(input?: OrderWithPrice): void {

@@ -1,10 +1,10 @@
-import { InputData, IPipelineStage } from '../pipeline';
+import { IPipelineStage } from '../pipeline';
 import { readFileSync } from 'fs';
 import * as path from 'path';
 
-export interface IInput extends IPipelineStage<void, InputData> {}
+export interface IInput extends IPipelineStage<void, string> {}
 
-export class InputReader implements IInput, IPipelineStage<void, InputData> {
+export class InputReader implements IInput, IPipelineStage<void, string> {
   private data: string = '';
 
   // @ts-ignore

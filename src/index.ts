@@ -1,8 +1,6 @@
 require('dotenv').config();
 
-import { Calculator } from './calculate';
-import { InputReader, OutputPrinter } from './io';
-import { Preprocessor } from './preprocess';
+import { InputReader, Preprocessor, Calculator, OutputPrinter } from './pipeline-stages';
 import { Pipeline } from './pipeline';
 
 const stages = [new InputReader(), new Preprocessor(), new Calculator(), new OutputPrinter()];

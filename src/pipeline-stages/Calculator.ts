@@ -1,10 +1,10 @@
-import { CalculatedResult, IPipelineStage, PreprocessedData } from '../pipeline';
-import { Order, OrderWithPrice, PizzaWithPrice } from '../pipeline/dto-types';
-import { PriceService } from './PriceService';
+import { PizzaWithPrice, Order, OrderWithPrice } from '../models';
+import { IPipelineStage } from '../pipeline';
+import { PriceService } from '../services';
 
-export interface ICalculator extends IPipelineStage<PreprocessedData, CalculatedResult> {}
+export interface ICalculator extends IPipelineStage<Order, OrderWithPrice> {}
 
-export class Calculator implements ICalculator, IPipelineStage<PreprocessedData, CalculatedResult> {
+export class Calculator implements ICalculator, IPipelineStage<Order, OrderWithPrice> {
   private data = {} as OrderWithPrice;
   private priceService: PriceService;
 

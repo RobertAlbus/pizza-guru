@@ -1,9 +1,9 @@
-import { InputData, IPipelineStage, PreprocessedData } from '../pipeline';
-import { Order, Pizza } from '../pipeline/dto-types';
+import { Order, Pizza } from '../models';
+import { IPipelineStage } from '../pipeline';
 
-export interface IPreprocessor extends IPipelineStage<InputData, PreprocessedData> {}
+export interface IPreprocessor extends IPipelineStage<string, Order> {}
 
-export class Preprocessor implements IPreprocessor, IPipelineStage<InputData, PreprocessedData> {
+export class Preprocessor implements IPreprocessor, IPipelineStage<string, Order> {
   private data = {} as Order;
 
   ingest(input?: string): void {
