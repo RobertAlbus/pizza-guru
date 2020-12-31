@@ -5,15 +5,14 @@ export interface IInputValidator extends IPipelineStage<string, string> {}
 
 export class InputValidator implements IInputValidator, IPipelineStage<string, string> {
   private configService: IEnvConfigService;
-  private data: string = '';
 
   constructor() {
     this.configService = new EnvConfigService();
   }
 
-  ingest(input: string): void {
+  process(input: string): string {
     this.validate(input);
-    this.data = input;
+    return input;
   }
 
   private validate(input: string) {
@@ -26,9 +25,5 @@ export class InputValidator implements IInputValidator, IPipelineStage<string, s
         throw new Error(`The following line in your order is invalid: \n\n ${line} \n\n`);
       }
     });
-  }
-
-  getResult(): string {
-    return this.data;
   }
 }

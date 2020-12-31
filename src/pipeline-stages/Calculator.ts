@@ -5,30 +5,15 @@ import { PriceService } from '../services';
 export interface ICalculator extends IPipelineStage<Order, OrderWithPrice> {}
 
 export class Calculator implements ICalculator, IPipelineStage<Order, OrderWithPrice> {
-  private data = {} as OrderWithPrice;
   private priceService: PriceService;
 
   constructor() {
     this.priceService = new PriceService();
   }
 
-  ingest(input: Order): void {
+  public process(input: Order): OrderWithPrice {
     this.validate(input);
 
-    this.data = this.process(input);
-  }
-
-  getResult(): OrderWithPrice {
-    return this.data;
-  }
-
-  private validate(input?: Order) {
-    if (!input || !input.pizzas) {
-      throw new Error('Calculator received invalid input.');
-    }
-  }
-
-  private process(input: Order): OrderWithPrice {
     let order = this.convertOrder(input);
 
     order.pizzas.forEach((pizza) => {
@@ -37,6 +22,12 @@ export class Calculator implements ICalculator, IPipelineStage<Order, OrderWithP
     this.calculateOrderPrice(order);
 
     return order;
+  }
+
+  private validate(input?: Order) {
+    if (!input || !input.pizzas) {
+      throw new Error('Calculator received invalid input.');
+    }
   }
 
   private convertOrder(input: Order): OrderWithPrice {

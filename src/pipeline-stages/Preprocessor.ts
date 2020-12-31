@@ -4,16 +4,11 @@ import { IPipelineStage } from '../pipeline';
 export interface IPreprocessor extends IPipelineStage<string, Order> {}
 
 export class Preprocessor implements IPreprocessor, IPipelineStage<string, Order> {
-  private data = {} as Order;
-
-  ingest(input: string): void {
+  process(input: string): Order {
     this.validate(input);
 
-    this.data = this.process(input);
-  }
-
-  getResult(): Order {
-    return this.data;
+    const result = this.buildOutput(input);
+    return result;
   }
 
   private validate(input: string): void {
@@ -22,7 +17,7 @@ export class Preprocessor implements IPreprocessor, IPipelineStage<string, Order
     }
   }
 
-  private process(input: string): Order {
+  private buildOutput(input: string): Order {
     const order: Order = {
       pizzas: [],
     };

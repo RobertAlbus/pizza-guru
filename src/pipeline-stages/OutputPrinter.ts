@@ -5,17 +5,13 @@ import { OrderWithPrice } from '../models';
 export interface IOutput extends IPipelineStage<OrderWithPrice, void> {}
 
 export class OutputPrinter implements IOutput, IPipelineStage<OrderWithPrice, void> {
-  private data: string = '';
-
-  ingest(input: OrderWithPrice): void {
+  process(input: OrderWithPrice): void {
     this.validate(input);
 
-    this.data = this.process(input);
-  }
+    const output = this.buildOutput(input);
 
-  getResult(): void {
     console.clear();
-    console.log(this.data);
+    console.log(output);
   }
 
   private validate(input: OrderWithPrice): void {
@@ -24,7 +20,7 @@ export class OutputPrinter implements IOutput, IPipelineStage<OrderWithPrice, vo
     }
   }
 
-  private process(order: OrderWithPrice): string {
+  private buildOutput(order: OrderWithPrice): string {
     let outputString = '';
 
     while (order.pizzas.length) {

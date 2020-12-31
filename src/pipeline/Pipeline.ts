@@ -11,8 +11,9 @@ export class Pipeline implements IPipeline {
     const stack: any[] = [];
     try {
       this.stages.forEach((stage) => {
-        stage.ingest(stack[stack.length - 1]);
-        stack.push(stage.getResult());
+        const previousStage = stack[stack.length - 1];
+        const output = stage.process(previousStage);
+        stack.push(output);
       });
     } catch (error) {
       console.clear();
