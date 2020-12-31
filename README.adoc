@@ -2,7 +2,7 @@
 
 === Program Flow
 
-input > preprocess > calculate > output
+input > validate > preprocess > calculate > output
 
 
 
