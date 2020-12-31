@@ -40,13 +40,14 @@ export class OutputPrinter implements IOutput, IPipelineStage<OrderWithPrice, vo
 
       // build output for pizza items
       outputString += `${count} ${pizza.size}, ${pizza.toppings.length} topping pizza - `;
-      outputString += `${pizza.toppings.join(', ')}: ${pizza.price} \n`;
+      outputString += `${pizza.toppings.join(', ')}: \$${pizza.price.toFixed(2)} \n`;
     }
 
     // build output for order price
-    outputString += `Subtotal: \$ ${order.subtotal.toFixed(2)} \n`;
-    outputString += `GST: \$ ${order.tax.toFixed(2)} \n`;
-    outputString += `Total: \$ ${order.total.toFixed(2)} \n`;
+    outputString += `\n`;
+    outputString += `Subtotal: \$${order.subtotal.toFixed(2)} \n`;
+    outputString += `GST:      \$${order.tax.toFixed(2)} \n`;
+    outputString += `Total:    \$${order.total.toFixed(2)} \n`;
 
     return outputString;
   }
