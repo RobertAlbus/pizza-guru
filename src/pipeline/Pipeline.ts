@@ -9,9 +9,14 @@ export class Pipeline implements IPipeline {
 
   public run(): void {
     const stack: any[] = [];
-    this.stages.forEach((stage) => {
-      stage.ingest(stack[stack.length - 1]);
-      stack.push(stage.getResult());
-    });
+    try {
+      this.stages.forEach((stage) => {
+        stage.ingest(stack[stack.length - 1]);
+        stack.push(stage.getResult());
+      });
+    } catch (error) {
+      console.clear();
+      console.log(error.message);
+    }
   }
 }
