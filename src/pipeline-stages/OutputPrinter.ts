@@ -7,16 +7,21 @@ export interface IOutput extends IPipelineStage<OrderWithPrice, void> {}
 export class OutputPrinter implements IOutput, IPipelineStage<OrderWithPrice, void> {
   private data: string = '';
 
-  ingest(input?: OrderWithPrice): void {
-    if (!input) {
-      throw new Error('Output Printer did not receive data');
-    }
+  ingest(input: OrderWithPrice): void {
+    this.validate(input);
+
     this.data = this.process(input);
   }
 
   getResult(): void {
     console.clear();
     console.log(this.data);
+  }
+
+  private validate(input: OrderWithPrice): void {
+    if (!input) {
+      throw new Error('Output Printer did not receive data');
+    }
   }
 
   private process(order: OrderWithPrice): string {

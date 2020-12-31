@@ -12,15 +12,20 @@ export class Calculator implements ICalculator, IPipelineStage<Order, OrderWithP
     this.priceService = new PriceService();
   }
 
-  ingest(input?: Order): void {
-    if (!input || !input.pizzas) {
-      throw new Error('Calculator received invalid input.');
-    }
+  ingest(input: Order): void {
+    this.validate(input);
 
     this.data = this.process(input);
   }
+
   getResult(): OrderWithPrice {
     return this.data;
+  }
+
+  private validate(input?: Order) {
+    if (!input || !input.pizzas) {
+      throw new Error('Calculator received invalid input.');
+    }
   }
 
   private process(input: Order): OrderWithPrice {

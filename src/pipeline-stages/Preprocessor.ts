@@ -6,16 +6,20 @@ export interface IPreprocessor extends IPipelineStage<string, Order> {}
 export class Preprocessor implements IPreprocessor, IPipelineStage<string, Order> {
   private data = {} as Order;
 
-  ingest(input?: string): void {
-    if (!input || typeof input != 'string') {
-      throw new Error('Preprocessor received invalid input.');
-    }
+  ingest(input: string): void {
+    this.validate(input);
 
     this.data = this.process(input);
   }
 
   getResult(): Order {
     return this.data;
+  }
+
+  private validate(input: string): void {
+    if (!input || typeof input != 'string') {
+      throw new Error('Preprocessor received invalid input.');
+    }
   }
 
   private process(input: string): Order {
@@ -31,6 +35,7 @@ export class Preprocessor implements IPreprocessor, IPipelineStage<string, Order
       const pizza = {} as Pizza;
       pizza.size = this.getSizeFromPizzaString(pizzaString);
       pizza.toppings = this.getToppingsFromPizza(pizzaString) || [];
+
       order.pizzas.push(pizza);
     });
 
