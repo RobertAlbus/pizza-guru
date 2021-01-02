@@ -1,8 +1,39 @@
 == Pizza Guru CLI
 
-=== Program Flow
+```
+$ yarn install
+$ yarn run start
+```
 
-input > validate > preprocess > calculate > output
+Modify the input parameters of this program by changing `.env` or the corresponding files in `data/`.
+
+
+=== About
+
+This application is a response to the coding challenge outlined in `code-problem.pdf`.
+
+In short:
+
+* parse a string representing a pizza order
+* calculate the price of each pizza, the order subtotal, taxes, and final total
+* print a formatted receipt
+
+The challenge format of `parse input > calculate > print output` is fairly common. I've done a few of them over the years and it's become increasingly apparent to me that the Pipeline design pattern fits the bill. Beyond satisfying the challenges requirements, this ultimately aims to be a decidedly Object Oriented take on the pattern.
+
+
+=== Approach: Chain Of Responsibility Pattern or Pipeline Pattern
+
+[quote, Martin Fowler]
+[...] pipelines are a programming pattern where you organize some computation as a sequence of operations which compose by taking an [...] output of one operation and feeding it into the next.
+
+
+My implementation formalizes the ideas of Pipelines and Pipeline Stages as classes. Pipelines are recursively composable as they execute a list of IPipelineStages and they are themselves an implementation of IPipelineStage.
+
+==== Program Flow
+
+`input > validate input > preprocess > calculate > output`
+
+Each of these stages are implemented as a PipelineStage and are aggregated within the Pipeline.
 
 
 
