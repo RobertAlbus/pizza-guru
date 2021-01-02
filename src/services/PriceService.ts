@@ -25,14 +25,15 @@ export class PriceService implements IPriceService {
     throw new Error(`No price data for pizza size: ${size}`);
   }
 
-  public getToppingPrice(topping: string, size: string): number {
-    const toppingPrice = this.data.toppings[topping][size];
+  public getToppingPrice(toppingName: string, size: string): number {
+    const topping = this.data.toppings[toppingName];
+    const toppingPrice = topping && topping[size];
 
     if (toppingPrice) {
       return parseFloat(toppingPrice);
     }
 
-    throw new Error(`No price data for ${topping} on ${size} size pizza`);
+    throw new Error(`No price data for ${toppingName} on ${size} size pizza`);
   }
 
   public getTaxRate(): number {
