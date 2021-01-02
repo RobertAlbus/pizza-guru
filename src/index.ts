@@ -1,16 +1,15 @@
 require('dotenv').config();
 
 import { InputReader, Preprocessor, Calculator, OutputPrinter, InputValidator } from './pipeline-stages';
-import { IPipelineStage, Pipeline } from './pipeline';
+import { IPipelineStages, MonoPipeline } from './pipeline';
 
-const stages: IPipelineStage<any, any>[] = [
+const stages: IPipelineStages = [
   new InputReader(),
   new InputValidator(),
   new Preprocessor(),
   new Calculator(),
   new OutputPrinter(),
 ];
-const pipeline = new Pipeline(stages);
+const pipeline = new MonoPipeline<void, void>(stages);
 
-pipeline.run();
-
+pipeline.process();

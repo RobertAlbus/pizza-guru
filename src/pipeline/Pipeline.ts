@@ -1,14 +1,12 @@
-import { IPipelineStage } from '.';
+import { IPipelineStage, IPipelineStages } from '.';
 
-export interface IPipeline {
-  run(input?: any[]): any;
-}
+export interface IPipeline<TInput, TOutput> extends IPipelineStage<TInput, TOutput> {}
 
-export class Pipeline implements IPipeline {
-  constructor(private stages: IPipelineStage<any, any>[]) {}
+export class MonoPipeline<TInput, TOutput> implements IPipeline<TInput, TOutput> {
+  constructor(private stages: IPipelineStages<any, any>) {}
 
-  public run(input: any[] = []): any {
-    const stack = input;
+  process(input: TInput): TOutput {
+    const stack: any[] = [input] || [];
     try {
       this.stages.forEach((stage) => {
         const previousStage = stack[stack.length - 1];
@@ -20,6 +18,6 @@ export class Pipeline implements IPipeline {
       console.log(error.message);
     }
 
-    return stack[stack.length - 1];
+    return (stack[stack.length - 1] as unknown) as TOutput;
   }
 }

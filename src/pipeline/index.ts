@@ -1,4 +1,4 @@
-import { IPipeline, Pipeline } from './Pipeline';
-import { IPipelineStage } from './PipelineStage';
+import { IPipeline, MonoPipeline } from './Pipeline';
+import { IPipelineStage, IPipelineStages } from './PipelineStage';
 
-export { IPipeline, Pipeline, IPipelineStage };
+export { IPipeline, MonoPipeline, IPipelineStage, IPipelineStages };
